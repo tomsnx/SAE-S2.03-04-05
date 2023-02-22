@@ -1,0 +1,10 @@
+#mac
+.DS_Store
+
+#other
+/.idea
+/.vscode
+
+#folders
+/__pycache__
+/controllers/__pycache__
