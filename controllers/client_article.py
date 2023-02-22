@@ -29,14 +29,14 @@ def client_article_show():                                 # remplace client_ind
 
     # utilisation du filtre
     sql = '''
-            SELECT id_taille AS id_type_article
-                    ,libelle_taille AS libelle
-            FROM taille
-            ORDER BY id_taille;
+            SELECT id_type_gant AS id_type_article
+                    ,libelle_type_gant AS libelle
+            FROM type_gant
+            ORDER BY id_type_gant;
             '''
     mycursor.execute(sql)
-    tailles = mycursor.fetchall()
-    types_article = tailles
+    type_gant = mycursor.fetchall()
+    types_article = type_gant
 
 
     list_param = []
