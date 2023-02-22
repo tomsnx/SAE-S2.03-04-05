@@ -4,7 +4,7 @@
 #other
 .idea
 /.vscode
-connexion_db.py
+/connexion_db.py
 
 #folders
 /__pycache__
