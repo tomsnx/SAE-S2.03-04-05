@@ -4,6 +4,8 @@
 #other
 .idea
 /.vscode
+
+#files
 connexion_db.py
 
 #folders
