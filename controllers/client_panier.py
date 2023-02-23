@@ -34,6 +34,10 @@ def client_panier_add():
 
     get_db().commit()
     return redirect('/client/gant/show')
+  
+     mycursor.execute("UPDATE gant SET stock_gant = stock_gant-%s WHERE id_gant = %s", (quantite, id_gant))
+    gant = mycursor.fetchone()
+    
     #id_declinaison_article=request.form.get('id_declinaison_article',None)
     id_declinaison_article = 1
 
