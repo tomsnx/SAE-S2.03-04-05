@@ -46,14 +46,12 @@ def client_article_show():                                 # remplace client_ind
 
     # pour le filtre
     # types_article = []
-
-
     articles_panier = []
+    sql = "SELECT nom FROM ligne_panier WHERE utilisateur_id = %s"
+    mycursor.execute(sql, (id_client))
+    articles_panier = mycursor.fetchall()
 
     if len(articles_panier) >= 1:
-        sql = "SELECT * , 10 as prix_gant , concat('nom_gant',id_gant) as nom FROM ligne_panier"
-        mycursor.execute(sql)
-        articles_panier = mycursor.fetchall()
         prix_total = 123  # requete à faire
     else:
         prix_total = None
