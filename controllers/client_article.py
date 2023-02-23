@@ -47,7 +47,10 @@ def client_article_show():                                 # remplace client_ind
     # pour le filtre
     # types_article = []
     articles_panier = []
-    sql = "SELECT nom FROM ligne_panier WHERE utilisateur_id = %s"
+    sql = """SELECT gant.nom_gant AS nom, gant.prix_gant AS prix, ligne_panier.quantite
+             FROM ligne_panier
+             LEFT JOIN gant ON gant.id_gant = ligne_panier.id_gant
+             WHERE id_utilisateur = %s"""
     mycursor.execute(sql, (id_client))
     articles_panier = mycursor.fetchall()
 

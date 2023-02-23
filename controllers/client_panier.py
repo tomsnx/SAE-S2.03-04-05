@@ -31,12 +31,12 @@ def client_panier_add():
         tuple_insert = (id_utilisateur, id_gant, quantite)
         sql = "INSERT INTO ligne_panier(id_utilisateur, id_gant, quantite, date_ajout) VALUES (%s, %s, %s, current_timestamp)"
         mycursor.execute(sql, tuple_insert)
+    
+    mycursor.execute("UPDATE gant SET stock_gant = stock_gant-%s WHERE id_gant = %s", (quantite, id_gant))
+    gant = mycursor.fetchone()
 
     get_db().commit()
     return redirect('/client/gant/show')
-  
-     mycursor.execute("UPDATE gant SET stock_gant = stock_gant-%s WHERE id_gant = %s", (quantite, id_gant))
-    gant = mycursor.fetchone()
     
     #id_declinaison_article=request.form.get('id_declinaison_article',None)
     id_declinaison_article = 1
