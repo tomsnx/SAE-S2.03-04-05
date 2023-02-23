@@ -16,24 +16,24 @@ def client_panier_add():
     id_gant = request.form.get('id_gant')
     quantite = request.form.get('quantite')
 
-    sql = "SELECT * FROM ligne_panier WHERE id_gant=%s AND id_utilisateur=%s"
+    sql = "SELECT * FROM ligne_panier WHERE id_gant = %s AND id_utilisateur = %s"
     mycursor.execute(sql, (id_gant, id_utilisateur))
     article_panier = mycursor.fetchone()
 
     mycursor.execute("SELECT * FROM gant WHERE id_gant = %s", (id_gant))
     gant = mycursor.fetchone()
 
-    if not (article_panier is None) and article_panier['gantite'] >= 1:
-        tuple_update = (quantite, id_utilisateur, id_gant)
-        sql = "UPDATE ligne_panier SET quantite=quantite+%s WHERE id_utilisateur = %s AND id_gant=%s"
+    if not (article_panier is None) and article_panier['quantite'] >= 1:
+        tuple_update = (int(quantite) + article_panier['quantite'], id_utilisateur, id_gant)
+        sql = "UPDATE ligne_panier SET quantite = %s WHERE id_utilisateur = %s AND id_gant = %s"
         mycursor.execute(sql, tuple_update)
     else :
         tuple_insert = (id_utilisateur, id_gant, quantite)
-        sql = "INSERT INTO ligne_panier(id_utilisateur, id_gant, quantite, date_ajout) VALUES (%s,%s,%s, current_timestamp)"
+        sql = "INSERT INTO ligne_panier(id_utilisateur, id_gant, quantite, date_ajout) VALUES (%s, %s, %s, current_timestamp)"
         mycursor.execute(sql, tuple_insert)
 
     get_db().commit()
-    return redirect('Lclient/article/show')
+    return redirect('/client/gant/show')
     #id_declinaison_article=request.form.get('id_declinaison_article',None)
     id_declinaison_article = 1
 

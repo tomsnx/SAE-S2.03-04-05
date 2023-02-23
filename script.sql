@@ -105,8 +105,8 @@ VALUES (null, 'super gant', 4000.99, 'gants1.png', 5, 2, 2),
        (null, 'gant en plastique jaune', 3.99, 'gants1.png', 12, 3, 3),
        (null, 'mouffle', 4.99, 'gants1.png', 9, 1, 4),
        (null, 'mitaine', 5.00, 'gants1.png', 1, 2, 4),
-(null, 'gant en plastique violet', 3.99, 'gants1.png', 10, 1, 3),
-(null, 'gant en plastique bleu', 3.99, 'gants1.png', 14, 2, 3),
-(null, 'gant de pompier', 12.00, 'gants1.png', 1, 5, 2),
-(null, 'gant de maître jardinier', 7.30, 'gants1.png', 8, 5, 1),
-(null, 'gant de jardinier amateur', 3.30, 'gants1.png', 2, 3, 1);
+       (null, 'gant en plastique violet', 3.99, 'gants1.png', 10, 1, 3),
+       (null, 'gant en plastique bleu', 3.99, 'gants1.png', 14, 2, 3),
+       (null, 'gant de pompier', 12.00, 'gants1.png', 1, 5, 2),
+       (null, 'gant de maître jardinier', 7.30, 'gants1.png', 8, 5, 1),
+       (null, 'gant de jardinier amateur', 3.30, 'gants1.png', 2, 3, 1);
