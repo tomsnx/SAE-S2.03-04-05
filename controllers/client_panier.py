@@ -16,7 +16,9 @@ def client_panier_add():
     id_gant = request.form.get('id_gant')
     quantite = request.form.get('quantite')
 
-    sql = "SELECT * FROM ligne_panier WHERE id_gant = %s AND id_utilisateur = %s"
+    sql = """SELECT *
+             FROM ligne_panier
+             WHERE id_gant = %s AND id_utilisateur = %s"""
     mycursor.execute(sql, (id_gant, id_utilisateur))
     article_panier = mycursor.fetchone()
 
@@ -74,17 +76,24 @@ def client_panier_delete():
     # partie 2 : on supprime une déclinaison de l'article
     # id_declinaison_article = request.form.get('id_declinaison_article', None)
 
-    sql = ''' selection de la ligne du panier pour l'article et l'utilisateur connecté'''
-    article_panier=[]
+    sql = '''SELECT *
+             FROM ligne_panier
+             WHERE ligne_panier.id_ligne_panier = %s AND ligne_panier.id_utilisateur = %s''' ### cassé !!! ###
+    mycursor.execute(sql, [id_article, id_client])
+    article_panier = mycursor.fetchone()
+    print(article_panier)
 
     if not(article_panier is None) and article_panier['quantite'] > 1:
-        sql = ''' mise à jour de la quantité dans le panier => -1 article '''
+        sql = '''UPDATE ligne_panier
+                 SET ligne_panier.quantite = quantite - %s
+                 WHERE ligne_panier.id_ligne_panier = %s AND ligne_panier.id_utilisateur = %s'''
+        mycursor.execute(sql, [quantite, id_article, id_client])
     else:
         sql = ''' suppression de la ligne de panier'''
 
-    # mise à jour du stock de l'article disponible
+    # sql = """UPDATE"""
     get_db().commit()
-    return redirect('/client/article/show')
+    return redirect('/client/gant/show')
 
 
 
