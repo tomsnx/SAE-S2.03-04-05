@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS adresses;
 DROP TABLE IF EXISTS ligne_panier;
 DROP TABLE IF EXISTS ligne_commande;
 DROP TABLE IF EXISTS commande;
@@ -6,6 +7,7 @@ DROP TABLE IF EXISTS gant;
 DROP TABLE IF EXISTS type_gant;
 DROP TABLE IF EXISTS taille;
 DROP TABLE IF EXISTS utilisateur;
+
 
 CREATE TABLE utilisateur (
     id_utilisateur INT AUTO_INCREMENT PRIMARY KEY,
@@ -70,6 +72,16 @@ CREATE TABLE ligne_panier (
     date_ajout DATE,
     FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id_utilisateur),
     FOREIGN KEY (id_gant) REFERENCES gant(id_gant)
+);
+
+CREATE TABLE adresses (
+    id_adresses INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255),
+    rue VARCHAR(255),
+    code_postal VARCHAR(5),
+    ville VARCHAR(255),
+    id_utilisateur INT,
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id_utilisateur)
 );
 
 INSERT INTO utilisateur(id_utilisateur, login, email,

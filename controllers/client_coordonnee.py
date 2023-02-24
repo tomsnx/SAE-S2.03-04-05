@@ -34,8 +34,14 @@ def client_coordonnee_edit():
     mycursor = get_db().cursor()
     id_client = session['id_user']
 
+    sql = """SELECT *
+             FROM utilisateur
+             WHERE id_utilisateur = %s"""
+    mycursor.execute(sql, (id_client))
+    utilisateur = mycursor.fetchone()
+
     return render_template('client/coordonnee/edit_coordonnee.html'
-                           #,utilisateur=utilisateur
+                           ,utilisateur=utilisateur
                            )
 
 @client_coordonnee.route('/client/coordonnee/edit', methods=['POST'])
@@ -71,8 +77,14 @@ def client_coordonnee_add_adresse():
     mycursor = get_db().cursor()
     id_client = session['id_user']
 
+    sql = """SELECT *
+             FROM utilisateur
+             WHERE id_utilisateur = %s"""
+    mycursor.execute(sql, (id_client))
+    utilisateur = mycursor.fetchone()
+
     return render_template('client/coordonnee/add_adresse.html'
-                           #,utilisateur=utilisateur
+                           ,utilisateur=utilisateur
                            )
 
 @client_coordonnee.route('/client/coordonnee/add_adresse',methods=['POST'])
@@ -83,6 +95,10 @@ def client_coordonnee_add_adresse_valide():
     rue = request.form.get('rue')
     code_postal = request.form.get('code_postal')
     ville = request.form.get('ville')
+
+    sql = """INSERT INTO adresses(id_adresses, nom, rue, code_postal, ville, id_utilisateur)
+             VALUES (null, %s, %s, %s, %s, %s);"""
+    mycursor.execute(sql, (nom, rue, code_postal, ville, id_client))
     return redirect('/client/coordonnee/show')
 
 @client_coordonnee.route('/client/coordonnee/edit_adresse')
