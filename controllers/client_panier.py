@@ -63,7 +63,7 @@ def client_panier_add():
 # ajout dans le panier d'un article
 
 
-    return redirect('/client/article/show')
+    return redirect('/client/gant/show')
 
 @client_panier.route('/client/panier/delete', methods=['POST'])
 def client_panier_delete():
@@ -110,7 +110,7 @@ def client_panier_vider():
 
         sql2=''' mise à jour du stock de l'article : stock = stock + qté de la ligne pour l'article'''
         get_db().commit()
-    return redirect('/client/article/show')
+    return redirect('/client/gant/show')
 
 
 @client_panier.route('/client/panier/delete/line', methods=['POST'])
@@ -125,7 +125,7 @@ def client_panier_delete_line():
     sql2=''' mise à jour du stock de l'article : stock = stock + qté de la ligne pour l'article'''
 
     get_db().commit()
-    return redirect('/client/article/show')
+    return redirect('/client/gant/show')
 
 
 @client_panier.route('/client/panier/filtre', methods=['POST'])
@@ -136,11 +136,11 @@ def client_panier_filtre():
     filter_types = request.form.getlist('filter_types', None)
     # test des variables puis
     # mise en session des variables
-    return redirect('/client/article/show')
+    return redirect('/client/gant/show')
 
 
 @client_panier.route('/client/panier/filtre/suppr', methods=['POST'])
 def client_panier_filtre_suppr():
     # suppression  des variables en session
     print("suppr filtre")
-    return redirect('/client/article/show')
+    return redirect('/client/gant/show')

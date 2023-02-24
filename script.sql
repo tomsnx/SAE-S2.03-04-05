@@ -122,3 +122,8 @@ VALUES (null, 'super gant', 4000.99, 'gants1.png', 5, 2, 2),
        (null, 'gant de pompier', 12.00, 'gants1.png', 1, 5, 2),
        (null, 'gant de maître jardinier', 7.30, 'gants1.png', 8, 5, 1),
        (null, 'gant de jardinier amateur', 3.30, 'gants1.png', 2, 3, 1);
+
+INSERT INTO etat(id_etat, libelle_etat)
+VALUES (null, 'en cours de traitement'),
+       (null, 'expédié'),
+       (null, 'validé');

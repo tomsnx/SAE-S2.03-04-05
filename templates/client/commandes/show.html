@@ -21,14 +21,14 @@
             </table>
                 <br>
                 <div style="color: brown">
-                <strong>adresse livraison : </strong>{{ commande_adresses.nom_livraison }} {{ commande_adresses.rue_livraison }} {{ commande_adresses.code_postal_livraison }} {{ commande_adresses.ville_livraison }}
-                <br>
-                <strong>adresse facturation : </strong>
-                {% if commande_adresses.adresse_identique == 'adresse_identique' %}
-                    adresse identique
-                {% else %}
-                    {{ commande_adresses.nom_facturation }} {{ commande_adresses.rue_facturation }} {{ commande_adresses.code_postal_facturation }} {{ commande_adresses.ville_facturation }}
-                {% endif %}
+                    <strong>adresse livraison : </strong>{{ commande_adresses.nom_livraison }} {{ commande_adresses.rue_livraison }} {{ commande_adresses.code_postal_livraison }} {{ commande_adresses.ville_livraison }}
+                    <br>
+                    <strong>adresse facturation : </strong>
+                    {% if commande_adresses.adresse_identique == 'adresse_identique' %}
+                        adresse identique
+                    {% else %}
+                        {{ commande_adresses.nom_facturation }} {{ commande_adresses.rue_facturation }} {{ commande_adresses.code_postal_facturation }} {{ commande_adresses.ville_facturation }}
+                    {% endif %}
                 </div>
             <hr>
         {% endif %}
@@ -43,7 +43,7 @@
                         <tr>
                             <th>Date de commande</th>
                             <th>Nombre d'articles</th>
-                            <th>Coût total</th>
+                            <!-- <th>Coût total</th> -->
                             <th>Etat de la commande</th>
                             <th style="text-align: center;">Options</th>
                         </tr>
@@ -52,10 +52,8 @@
                         {% for commande in commandes %}
                             <tr id="" {% if commande.etat_id == 1 %} style="background: #FFD600; font-weight: bold;" {% endif %}>
                                 <td>{{ commande.date_achat.strftime('%d-%m-%Y') }}</td>
-                                <td> {{ commande.nbr_articles }} </td>
-                                <td>
-                                    {{ "{:,.2f} €".format(commande.prix_total) }}
-                                </td>
+                                <td>{{ commande.nbr_articles }}</td>
+                                <!-- prix total ici -->
                                 <td style="text-align: center;">
                                     {% if commande.etat_id == 1 %} <div style="background-color: #ba8b00; padding: 5px;">
                                      {{ commande.libelle }}
