@@ -6,17 +6,27 @@ from flask import Flask, request, render_template, redirect, url_for, abort, fla
 from connexion_db import get_db
 
 client_coordonnee = Blueprint('client_coordonnee', __name__,
-                        template_folder='templates')
+                              template_folder='templates')
 
 @client_coordonnee.route('/client/coordonnee/show')
 def client_coordonnee_show():
     mycursor = get_db().cursor()
     id_client = session['id_user']
 
+    ### ERRREUR À RÉSOUDRE IMPÉRATIVEMENT
+    sql = """SELECT *
+             FROM utilisateur
+             WHERE id_utilisateur = %s"""
+    mycursor.execute(sql, (id_client))
+    utilisateur = mycursor.fetchone()
+
+    adresses = []
+    nb_adresses = 2
+
     return render_template('client/coordonnee/show_coordonnee.html'
-                         #  , utilisateur=utilisateur
-                         #  , adresses=adresses
-                         #  , nb_adresses=nb_adresses
+                          , utilisateur=utilisateur
+                          , adresses=adresses
+                          , nb_adresses=nb_adresses
                            )
 
 @client_coordonnee.route('/client/coordonnee/edit', methods=['GET'])
