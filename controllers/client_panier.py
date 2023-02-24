@@ -69,17 +69,17 @@ def client_panier_add():
 def client_panier_delete():
     mycursor = get_db().cursor()
     id_client = session['id_user']
-    id_article = request.form.get('id_article','')
+    id_ligne_panier = request.form.get('id_ligne_panier','')
     quantite = 1
 
     # ---------
     # partie 2 : on supprime une déclinaison de l'article
     # id_declinaison_article = request.form.get('id_declinaison_article', None)
 
-    sql = '''SELECT *
+    sql = '''SELECT id_ligne_panier, id_utilisateur, id_gant as id_article, quantite, date_ajout
              FROM ligne_panier
-             WHERE ligne_panier.id_ligne_panier = %s AND ligne_panier.id_utilisateur = %s''' ### cassé !!! ###
-    mycursor.execute(sql, [id_article, id_client])
+             WHERE ligne_panier.id_utilisateur = %s AND ligne_panier.id_ligne_panier = %s'''
+    mycursor.execute(sql, [id_client, id_ligne_panier])
     article_panier = mycursor.fetchone()
     print(article_panier)
 
@@ -87,7 +87,7 @@ def client_panier_delete():
         sql = '''UPDATE ligne_panier
                  SET ligne_panier.quantite = quantite - %s
                  WHERE ligne_panier.id_ligne_panier = %s AND ligne_panier.id_utilisateur = %s'''
-        mycursor.execute(sql, [quantite, id_article, id_client])
+        mycursor.execute(sql, [quantite, id_ligne_panier, id_client])
     else:
         sql = ''' suppression de la ligne de panier'''
 
