@@ -18,7 +18,9 @@ def admin_index():
 def admin_commande_show():
     mycursor = get_db().cursor()
     admin_id = session['id_user']
-    sql = '''            '''
+    sql = """SELECT *
+             FROM commande
+             ORDER BY id_etat, date_achat DESC"""
 
     mycursor.execute(sql)
     commandes = mycursor.fetchall()
@@ -43,7 +45,7 @@ def admin_commande_valider():
     commande_id = request.form.get('id_commande', None)
     if commande_id != None:
         print(commande_id)
-        sql = '''           '''
+        sql = sql = "UPDATE commande SET commande.id_etat = 2 WHERE id_commande = %s "
         mycursor.execute(sql, commande_id)
         get_db().commit()
     return redirect('/admin/commande/show')

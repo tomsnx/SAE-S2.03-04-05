@@ -17,8 +17,14 @@ admin_article = Blueprint('admin_article', __name__,
 @admin_article.route('/admin/article/show')
 def show_article():
     mycursor = get_db().cursor()
-    sql = '''  requête admin_article_1
-    '''
+    sql = sql = """
+        SELECT id_gant AS id_article
+               , nom_gant AS nom
+               , prix_gant AS prix
+               , stock_gant AS stock
+               , image_gant AS image
+        FROM gant
+        ORDER BY nom_gant;"""
     mycursor.execute(sql)
     articles = mycursor.fetchall()
     return render_template('admin/article/show_article.html', articles=articles)
@@ -101,9 +107,14 @@ def delete_article():
 def edit_article():
     id_article=request.args.get('id_article')
     mycursor = get_db().cursor()
-    sql = '''
-    requête admin_article_6    
-    '''
+    sql = """SELECT id_gant AS id_article
+               , nom_gant AS nom
+               , prix_gant AS prix
+               , stock_gant AS stock
+               , image_gant AS image
+        FROM gant
+        WHERE id_gant=%s
+        ORDER BY nom_gant;"""
     mycursor.execute(sql, id_article)
     article = mycursor.fetchone()
     print(article)
