@@ -20,10 +20,10 @@
         </div>
 
         <div class="row">
-                {% for article in articles  %}
+                {% for article in gant  %}
                         <div class="card col-4 mt-4 p-1">
                             <div class="card-body border-dark rounded p-1">
-                                <a href="/client/article/details?id_gant={{ article.id_article }}" >
+                                <a href="/client/article/details?id_gant={{ article.id_gant }}" >
                                 <h3 class="card-title">
                                     <span style="color: #0b2e13">{{ article.nom }}</span><br>
                                     {{ article.prix }}
@@ -39,7 +39,7 @@
 {# #}                                {% if  article.stock is defined and article.stock != None %}
 {# #}                                    {% if article.stock > 0 %}
                                         <form  action="/client/panier/add"  method="post" class="col-5">
-                                            <input type="hidden" name="id_gant" value="{{ article.id_article }}">
+                                            <input type="hidden" name="id_gant" value="{{ article.id_gant }}">
                                             <div class="input-group">
                                             <button class="btn  btn-success"  id="button-addon1">
                                                 <i class="fas fa-shopping-cart">Ajouter</i>

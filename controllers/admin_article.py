@@ -46,9 +46,8 @@ def valid_add_article():
     mycursor = get_db().cursor()
 
     nom = request.form.get('nom', '')
-    type_article_id = request.form.get('type_article_id', '')
+    id_type_article = request.form.get('id_type_article', '')
     prix = request.form.get('prix', '')
-    description = request.form.get('description', '')
     image = request.files.get('image', '')
 
     if image:
@@ -58,16 +57,16 @@ def valid_add_article():
         print("erreur")
         filename=None
 
-    sql = '''  requête admin_article_2 '''
+    sql = ''' ajouter un sql'''
 
-    tuple_add = (nom, filename, prix, type_article_id, description)
+    tuple_add = (nom, filename, prix, id_type_article)
     print(tuple_add)
     mycursor.execute(sql, tuple_add)
     get_db().commit()
 
-    print(u'article ajouté , nom: ', nom, ' - type_article:', type_article_id, ' - prix:', prix,
-          ' - description:', description, ' - image:', image)
-    message = u'article ajouté , nom:' + nom + '- type_article:' + type_article_id + ' - prix:' + prix + ' - description:' + description + ' - image:' + str(
+    print(u'article ajouté , nom: ', nom, ' - type_article:', id_type_article, ' - prix:', prix,
+         ' - image:', image)
+    message = u'article ajouté , nom:' + nom + '- type_article:' + id_type_article + ' - prix:' + prix + ' - image:' + str(
         image)
     flash(message, 'alert-success')
     return redirect('/admin/article/show')
@@ -107,14 +106,9 @@ def delete_article():
 def edit_article():
     id_article=request.args.get('id_article')
     mycursor = get_db().cursor()
-    sql = """SELECT id_gant AS id_article
-               , nom_gant AS nom
-               , prix_gant AS prix
-               , stock_gant AS stock
-               , image_gant AS image
-        FROM gant
-        WHERE id_gant=%s
-        ORDER BY nom_gant;"""
+    sql = '''
+    requête admin_article_6    
+    '''
     mycursor.execute(sql, id_article)
     article = mycursor.fetchone()
     print(article)
