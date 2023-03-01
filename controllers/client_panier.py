@@ -18,13 +18,16 @@ def client_panier_add():
     id_gant = request.form.get('id_gant')
     quantite = request.form.get('quantite')
 
-    sql = """SELECT * FROM ligne_panier 
+    sql = """SELECT *
+             FROM ligne_panier 
              WHERE id_gant = %s AND id_utilisateur = %s"""
     
     mycursor.execute(sql, (id_gant, id_utilisateur))
     article_panier = mycursor.fetchone()
 
-    sql = """SELECT * FROM gant WHERE id_gant = %s"""
+    sql = """SELECT *
+             FROM gant
+             WHERE id_gant = %s"""
     
     mycursor.execute(sql, (id_gant))
     gant = mycursor.fetchone()
@@ -121,7 +124,6 @@ def client_panier_delete_line():
     mycursor.execute(sql, (id_gant, id_client))
     article_panier = mycursor.fetchone()
 
-    print(article_panier)
     if not(article_panier is None) and article_panier['quantite'] >= 1:
         sql = '''UPDATE gant
                  SET stock_gant = stock_gant + %s
@@ -140,13 +142,20 @@ def client_panier_vider():
     mycursor = get_db().cursor()
     id_client = session['id_user']
 
-    sql = """SELECT COUNT(ligne_panier.id_ligne_panier) AS nb_ligne
-             FROM ligne_panier"""
-    mycursor.execute(sql)
-    ligne_panier = mycursor.fetchall
+    #Faire boucler le code suivant sur chaque ligne de article_panier
+    # et récupérer la quantité de chaque item pour pourvoir l'ajouter
 
-    for item in ligne_panier.nb_ligne:
-        print(1)
+    if not(article_panier is None) and article_panier['quantite'] >= 1:
+        sql = '''UPDATE gant
+                 SET stock_gant = stock_gant + %s
+                 WHERE id_gant = %s'''
+        mycursor.execute(sql, (article_panier['quantite'], id_gant))
+        
+        sql = '''DELETE FROM ligne_panier
+                 WHERE id_gant=%s AND id_utilisateur=%s'''
+        mycursor.execute(sql, (id_gant, id_client))
+        pass
+    get_db().commit()
 
     return redirect('/client/gant/show')
 

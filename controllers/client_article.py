@@ -40,10 +40,8 @@ def client_article_show():                                 # remplace client_ind
     
     # types_article = []
 
-    
-
     articles_panier = []
-    sql = """SELECT gant.id_gant, gant.nom_gant AS nom, gant.prix_gant AS prix, ligne_panier.quantite
+    sql = """SELECT gant.id_gant, gant.nom_gant AS nom, gant.prix_gant AS prix, gant.stock_gant AS stock, ligne_panier.quantite
              FROM ligne_panier
              LEFT JOIN gant ON gant.id_gant = ligne_panier.id_gant
              WHERE id_utilisateur = %s"""
